@@ -26,7 +26,7 @@ postEvSamp = postEvSec*round(sfFP);
 
 %% extract calcium window around events
 for evNum = 1:length(eventTimes)
-    %try
+    try
         if ~isnan(eventTimes(evNum))
             evTime = eventTimes(evNum);
             [minVal, zeroInd] = min(abs(tFP-evTime));
@@ -36,9 +36,9 @@ for evNum = 1:length(eventTimes)
             eventCa(:, evNum) = NaN([length(-preEvSamp:postEvSamp) 1], 'single');
             zeroInds(evNum) = NaN;
         end
-%     catch
-%         disp(['Problem with event # ' num2str(evNum) ' of type ' eventName]);
-%     end
+    catch
+        disp(['Problem with event # ' num2str(evNum) ' of type ' eventName]);
+    end
 end
 
 %% plotting
