@@ -11,7 +11,7 @@ ca = fpStruc.normCa; % extract fiber photometry data
 tScaleFact = fpStruc.tScaleFact;
 tOffset = fpStruc.tOffset;  % sec MedAssoc start time after FP data starts
 tFP = fpStruc.tFP;  % array of times (in sec) for FP data
-sfFP = fpStruc.sfFP;
+sfFP = fpStruc.sfFP;  % sample freq of fiber phot
 
 eventTimes = behavStruc.(eventName);
 %behavTime = behavStruc.time;  % time array for all behav, in sec.
@@ -19,7 +19,7 @@ eventTimes = behavStruc.(eventName);
 %% now adjust the event times
 eventTimes = eventTimes*tScaleFact+tOffset; % so now eventTimes and tFP should be on the same timescale
 %eventTimes = eventTimes(eventTimes<(max(tFP)-30));
-eventTimes(eventTimes>(max(tFP)-30))= NaN;
+eventTimes(eventTimes>(max(tFP)-30))= NaN; % NaN for times outside of imaging period
 
 preEvSamp = preEvSec*round(sfFP); % samples before event to include in ca epoch
 postEvSamp = postEvSec*round(sfFP);
